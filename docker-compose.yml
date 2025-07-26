@@ -6,10 +6,6 @@ services:
     ports:
       - "3008:3000"
     volumes:
-      - ~/qwerty/file:/file
+      - ~/qwerty/file:/usr/src/app/file
     command: npm start
     restart: unless-stopped
-
-volumes:
-  db_data:
-    driver: local
