@@ -31,7 +31,7 @@ app.use(express.json());
 
 // 1. 파일 목록을 JSON 형태로 제공하는 API 엔드포인트
 app.get('/api/files', (req, res) => {
-    const uploadsDir = path.join(__dirname, 'uploads');
+    const uploadsDir = path.join(__dirname, 'file');
 
     if (!fs.existsSync(uploadsDir)) {
         fs.mkdirSync(uploadsDir);
@@ -62,7 +62,7 @@ app.get('/api/files', (req, res) => {
 // 2. 파일 미리 보기 라우트 (변경 없음)
 app.get('/view/:filename', (req, res) => {
     const filename = req.params.filename;
-    const filePath = path.join(__dirname, 'uploads', filename);
+    const filePath = path.join(__dirname, 'file', filename);
 
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
@@ -84,7 +84,7 @@ app.get('/view/:filename', (req, res) => {
 // 3. 파일 다운로드 라우트 (변경 없음)
 app.get('/download/:filename', (req, res) => {
     const filename = req.params.filename;
-    const filePath = path.join(__dirname, 'uploads', filename);
+    const filePath = path.join(__dirname, 'file', filename);
 
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
@@ -106,7 +106,7 @@ app.get('/download/:filename', (req, res) => {
 // 4. 파일 삭제 라우트 (변경 없음)
 app.delete('/api/delete/:filename', (req, res) => { // DELETE 요청으로 변경
     const filename = req.params.filename;
-    const filePath = path.join(__dirname, 'uploads', filename);
+    const filePath = path.join(__dirname, 'file', filename);
 
     fs.unlink(filePath, (err) => {
         if (err) {
@@ -122,5 +122,4 @@ app.delete('/api/delete/:filename', (req, res) => { // DELETE 요청으로 변�
 // --- Start Server ---
 app.listen(PORT, () => {
     console.log(`서버가 http://localhost:${PORT} 에서 실행 중입니다.`);
-    console.log('파일은 "uploads" 디렉토리에 있어야 합니다.');
 });
